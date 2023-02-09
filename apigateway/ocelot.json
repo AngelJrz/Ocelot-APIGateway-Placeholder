@@ -1,0 +1,36 @@
+{
+  // This is for specific routes
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/api/getposts",
+      "UpstreamHttpMethod": ["Get", "Post", "Put"],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "jsonplaceholder.typicode.com",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/posts"
+    },
+    // Second route
+    {
+      "UpstreamPathTemplate": "/api/getposts/{idPost}",
+      "UpstreamHttpMethod": ["Get", "Post", "Put"],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "jsonplaceholder.typicode.com",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/posts/{idPost}"
+    }
+  ],
+  // Override routes specific settings 
+  "GlobalConfiguration": {
+    "BaseUrl": "http;//localhost:800"
+  }
+}
