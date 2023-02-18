@@ -1,5 +1,4 @@
 {
-  // This is for specific routes
   "Routes": [
     {
       "UpstreamPathTemplate": "/api/getposts",
@@ -14,7 +13,6 @@
       ],
       "DownstreamPathTemplate": "/posts"
     },
-    // Second route
     {
       "UpstreamPathTemplate": "/api/getposts/{idPost}",
       "UpstreamHttpMethod": ["Get", "Post", "Put"],
@@ -29,7 +27,6 @@
       "DownstreamPathTemplate": "/posts/{idPost}"
     }
   ],
-  // Override routes specific settings 
   "GlobalConfiguration": {
     "BaseUrl": "http;//localhost:800"
   }
