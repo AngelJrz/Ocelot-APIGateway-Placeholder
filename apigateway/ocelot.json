@@ -1,6 +1,19 @@
 {
   "Routes": [
     {
+      "UpstreamPathTemplate": "/",
+      "UpstreamHttpMethod": ["Get", "Post", "Put"],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "jsonplaceholder.typicode.com",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/posts/1"
+    },
+    {
       "UpstreamPathTemplate": "/api/getposts",
       "UpstreamHttpMethod": ["Get", "Post", "Put"],
 
