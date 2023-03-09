@@ -38,6 +38,19 @@
         }
       ],
       "DownstreamPathTemplate": "/posts/{idPost}"
+    },
+    {
+      "UpstreamPathTemplate": "/api/{comodin}",
+      "UpstreamHttpMethod": [],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "jsonplaceholder.typicode.com",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/{comodin}"
     }
   ],
   "GlobalConfiguration": {
