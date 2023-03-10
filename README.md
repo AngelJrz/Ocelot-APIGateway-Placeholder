@@ -1,12 +1,12 @@
 # Ocelot-APIGateway-Placeholder
 This is a reference example to build a Ocelot APIGateway 
 
-### Concepts
+## Concepts
 - GlobalConfiguration: default setting that are valid to all routes.
 - UPSTREAM: Is used to handle the incomming request and then routing it to the downstream path.
 - DOWNSTREAM: The route where the incomming request will go.
 
-### Wildcard
+## Wildcard
 We can use a wildcard like this to accept all the inputs (this can be dangerous if you dont handle all the possible cases).
 Examples:
 - /api/posts
@@ -29,7 +29,7 @@ Examples:
     }
 ```
 
-### Aggregates
+## Aggregates
 With this you can mix paths to return multiple information with one request
 ```json
 {
