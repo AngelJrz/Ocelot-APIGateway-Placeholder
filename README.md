@@ -28,3 +28,20 @@ Examples:
       "DownstreamPathTemplate": "/{wildcard}"
     }
 ```
+
+### Aggregates
+With this you can mix paths to return multiple information with one request
+```json
+{
+  "Aggregates": [
+    {
+      "UpstreamPathTemplate": "/getall", <-- This route must be different to "/api/" because ocelot could confuse between aggregates and routing
+      "RouteKeys": [ "posts", "photos" ]
+    }
+  ],
+  "Routes": [
+```
+
+> Error: The aggregate may return corrupted data, this is because ocelot use "Accept-encoding" header.
+
+> Solution: You have to create a handler (RemoveEncodingDelegatingHandler) to remove the "Accept-encoding" encode and add it to Startup or Program
