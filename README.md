@@ -45,3 +45,7 @@ With this you can mix paths to return multiple information with one request
 > Error: The aggregate may return corrupted data, this is because ocelot use "Accept-encoding" header.
 
 > Solution: You have to create a handler (RemoveEncodingDelegatingHandler) to remove the "Accept-encoding" encode and add it to Startup or Program
+
+## Aggregate with code
+You can use code to make responses more dinamyc, for example, in the class GetAllAggregator.cs the API returns all the users with their post using two calls to the backend and mixing the responses in one structure. 
+ > With simple aggregates your return directly the two request made to the backend.

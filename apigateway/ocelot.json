@@ -2,7 +2,8 @@
   "Aggregates": [
     {
       "UpstreamPathTemplate": "/getall",
-      "RouteKeys": [ "posts", "photos" ]
+      "RouteKeys": [ "posts", "users" ],
+      "Aggregator": "GetAllAggregator"
     }
   ],
   "Routes": [
@@ -73,6 +74,20 @@
       "DownstreamPathTemplate": "/photos",
       "Key": "photos"
     },
+    {
+      "UpstreamPathTemplate": "/api/getusers",
+      "UpstreamHttpMethod": [ "Get"],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "jsonplaceholder.typicode.com",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/users",
+      "Key": "users"
+    }
   ],
   "GlobalConfiguration": {
     "BaseUrl": "http;//localhost:800"
