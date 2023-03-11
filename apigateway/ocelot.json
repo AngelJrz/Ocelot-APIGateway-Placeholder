@@ -73,7 +73,14 @@
         }
       ],
       "DownstreamPathTemplate": "/users",
-      "Key": "users"
+      "Key": "users",
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "3s",
+        "PeriodTimespan": 5,
+        "Limit": 1
+      }
     }
   ],
   "GlobalConfiguration": {

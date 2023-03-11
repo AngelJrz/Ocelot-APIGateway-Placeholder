@@ -52,6 +52,8 @@ You can use code to make responses more dinamyc, for example, in the class GetAl
  > With simple aggregates your return directly the two request made to the backend.
 
 ## Authenticate
+> You can put this in the global config
+
 You can use JWT to secure your API calls, you need to make a middleware with the nuget "Microsoft.AspNetCore.Authentication.JwtBearer" and add this method:
 ```csharp
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme) // When you specify an endpoint to authenticate, the request needs aprove this auth
@@ -91,3 +93,60 @@ After specify the auth method, secure your endpoint with this code
     }
 ```
 This enables you to create only one implementation of security for all your services, because all request will pass through this gateway.
+
+## Authorization
+> You can put this in the global config
+
+In this case, you can put a role in your JWT and ocelot requires that role to take your request as valid.
+```json
+    {
+      "UpstreamPathTemplate": "/api/getusers",
+      "UpstreamHttpMethod": [ "Get"],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "jsonplaceholder.typicode.com",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/users",
+      "Key": "users",
+      "AuthenticationOptions": {
+		"AuthenticationProviderKey": "Bearer"
+      },
+      "RouteClaimsRequirement": { 
+        "userType": "myRole" <-- Here you put the JWT role
+      }
+    }
+```
+
+## Rate limit
+> You can put this in the global config
+
+You can limit the the request number with this property:
+```json
+    {
+      "UpstreamPathTemplate": "/api/getusers",
+      "UpstreamHttpMethod": [ "Get"],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "jsonplaceholder.typicode.com",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/users",
+      "Key": "users",
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "3s",             <-- Period where you can make a number of requests
+        "PeriodTimespan": 5,        <-- If the request fails, you can try after this seconds
+        "Limit": 1                  <-- Number of requests you can make in a period
+      }
+    }
+```
+
+> If fails you get an error like this "API calls quota exceeded! maximum admitted 1 per 3s."
