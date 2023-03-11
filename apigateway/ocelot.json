@@ -48,19 +48,6 @@
       "DownstreamPathTemplate": "/posts/{idPost}"
     },
     {
-      "UpstreamPathTemplate": "/api/{wildcard}",
-      "UpstreamHttpMethod": [],
-
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "jsonplaceholder.typicode.com",
-          "Port": 80
-        }
-      ],
-      "DownstreamPathTemplate": "/{wildcard}"
-    },
-    {
       "UpstreamPathTemplate": "/api/getphotos",
       "UpstreamHttpMethod": [ "Get", "Post", "Put" ],
 

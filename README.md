@@ -28,6 +28,7 @@ Examples:
       "DownstreamPathTemplate": "/{wildcard}"
     }
 ```
+> This can lead to possible errors (ocelot doesn't recognize certain endpoints)
 
 ## Aggregates
 With this you can mix paths to return multiple information with one request
@@ -49,3 +50,44 @@ With this you can mix paths to return multiple information with one request
 ## Aggregate with code
 You can use code to make responses more dinamyc, for example, in the class GetAllAggregator.cs the API returns all the users with their post using two calls to the backend and mixing the responses in one structure. 
  > With simple aggregates your return directly the two request made to the backend.
+
+## Authenticate
+You can use JWT to secure your API calls, you need to make a middleware with the nuget "Microsoft.AspNetCore.Authentication.JwtBearer" and add this method:
+```csharp
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme) // When you specify an endpoint to authenticate, the request needs aprove this auth
+	.AddJwtBearer(options =>
+	{
+		options.TokenValidationParameters = new TokenValidationParameters
+		{
+			ValidateIssuerSigningKey = true,
+			ValidateIssuer = false,
+			ValidateAudience = false,
+			IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("MyAnonymousSecretKey")),
+			ClockSkew = new TimeSpan(0)
+		};
+	});
+
+
+app.UseAuthentication();
+```
+After specify the auth method, secure your endpoint with this code
+```json
+    {
+      "UpstreamPathTemplate": "/api/getusers",
+      "UpstreamHttpMethod": [ "Get"],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "jsonplaceholder.typicode.com",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/users",
+      "Key": "users",
+      "AuthenticationOptions": { <-- Specify the auth method
+        "AuthenticationProviderKey": "Bearer"
+      }
+    }
+```
+This enables you to create only one implementation of security for all your services, because all request will pass through this gateway.
